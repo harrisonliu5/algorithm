@@ -1,0 +1,35 @@
+var str = '110011000000001100101011000000100000000100000010';
+function changeTime(str) {
+  if (typeof str !== 'string' || (typeof str === 'string' && str.length < 48)) {
+    return [];
+  }
+  let min = ['30', '00'];
+  let startTime = '';
+  let endTime = '';
+  let timeCollection = [];
+  let count = 0;
+
+  for (let i = 0; i < 49; i++) {
+    if (str[i] === '1') {
+      if (i === 0 && count === 0) {
+        startTime = '00:00';
+      }
+      if (count === 0 && i !== 0 ) {
+        startTime = Math.floor(i / 2) + ':' + min[i % 2];
+      }
+      count++;
+    } else {
+      console.log(count);
+      if (count !== 0) {
+        endTime = Math.floor(i / 2) + ':' + min[i % 2];
+        let time = `${startTime}~${endTime}`;
+        timeCollection.push(time);
+      }
+      count = 0;
+    }
+  }
+  return timeCollection;
+}
+
+var a = changeTime(str);
+console.log(a);
